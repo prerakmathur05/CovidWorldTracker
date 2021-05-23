@@ -252,11 +252,10 @@ function App() {
           <p>
             {" "}
             Hi there! I am a passionate developer who believes in simplifying
-            life of people around me! connect with me at{" "}
+            life of people around me! connect with me on{" "}
             <a href="https://github.com/prerakmathur05/" target="_blank">
-              aiwebdocs.io{" "}
+              Github{" "}
             </a>{" "}
-            (will launch soon meanwhile lets catch up on github)
           </p>
           <p>
             {" "}
