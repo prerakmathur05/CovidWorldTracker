@@ -1,0 +1,22 @@
+.infobox{
+    flex:1;
+}
+.carda{
+    height : 80px;
+    background-color: black;
+    color:blanchedalmond;
+}
+.infobox--selected{
+    border-top : 5px solid greenyellow;}
+.infobox--notselected{
+    border-bottom : 5px solid black !important;
+}
+.infobox--red{
+    border-color: red;
+}
+.infobox--green{
+    color:green !important;
+}
+.infoBox__cases{
+    color:red;
+}

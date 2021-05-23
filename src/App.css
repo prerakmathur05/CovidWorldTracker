@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+*{
+  margin:0;
+}
+.app{
+  display: flex;
+  justify-content:space-evenly;
+  padding:20px;
+}
+@media (max-width: 990px){
+  .app{
+    flex-direction: column;
+  }
+}
+h1,h2{
+  color:blanchedalmond; 
+}
+.card_color h2{
+text-align: center;
+margin-top: 50px;
+}
+body{
+font-family: 'Montserrat', sans-serif;
+background-color: #faf3e0;
+background-image: url("covid.jpg");
+background-repeat: no-repeat;
+background-size: cover; 
+
+}
+.app__header{
+  display:flex;
+  align-items:center;
+  margin-bottom: 20px;
+  justify-content:space-between;
+
+}
+.app__left{
+  flex:0.8;
+}
+.app__right{
+  margin-left:20px; 
+  flex:0.2;
+  background-color: black;
+  height:100%;
+}
+.app__stats{
+  background-color: black;
+ display:flex; 
+ justify-content:space-between;
+}
+.indiaGraphs{
+  background-color:black; 
+
+}
+.app__dropdown{
+  color:blanchedalmond;
+  background-color:blanchedalmond;
+
+ }
+h3,p{
+  margin : 30px;
+  color:blanchedalmond;
+}
+
+.app__select{
+  color:red;
+}
+.card__color{
+  background-color:black;
+}

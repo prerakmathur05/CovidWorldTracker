@@ -1,0 +1,31 @@
+.table__content{
+    margin-top:0;
+    overflow: scroll;
+    height : 500px;
+    color: #cdc7be;
+    background-color:black;
+}
+
+.flex1{
+    flex-basis: 10%;
+    flex-wrap:wrap;
+}
+.table__heading{
+    margin-top:50px;
+    padding: 10px;
+    display: flex;
+    justify-content:space-between;
+     color: #cdc7be;
+    background-color:black;
+}
+
+.table__content tr{
+    display:flex;
+    justify-content:space-between;
+}
+.table__content tr:nth-of-type(odd){
+    background-color: #323232   ;
+}
+.table__content td{
+    padding:1rem;
+}
