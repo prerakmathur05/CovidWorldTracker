@@ -17,39 +17,60 @@ import LineGraphMini from "./LineGraphMini";
 //https://api.covid19india.org/v4/min/data.min.json
 function App() {
   const [countries, setCountries] = useState([]);
-  const [country, setCountry] = useState("India");
+  const [country, setCountry] = useState("USA");
   const [otherCountry, setOtherCountry] = useState("world");
   const [countryInfo, setCountryInfo] = useState({});
   const [otherCountryInfo, setOtherCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
   const [casesType, setCasesType] = useState("cases");
   const [indiaState, changeIndiaState] = useState([]);
-  const [countryCodeForGraph, setCountryCodeForGraph] = useState("in");
+  const [countryCodeForGraph, setCountryCodeForGraph] = useState("usa");
+  const [CountryCodeForTable, setCountryCodeForTable] = useState("usa");
 
+  //https://disease.sh/v3/covid-19/states
+  //Below code is for tabular data display between USA and India statewise
   useEffect(() => {
     const indiaData = async () => {
-      await fetch("https://api.covid19india.org/v4/min/data.min.json")
-        .then((response) => response.json())
-        .then((data) => {
-          // console.log("IndiaState Data obj >>", data);
-          const arrayIndiaState = [];
-          for (let x in data) {
-            arrayIndiaState.push({
-              name: x[0] + x[1],
-              confirmed: data[x].total.confirmed,
-              recovered: data[x].total.recovered,
-              vaccinated: data[x].total.vaccinated,
-              tested: data[x].total.tested,
-              deceased: data[x].total.deceased,
+      //  console.log("Here is change in code table >>>> RIGHT HERE ",CountryCodeForTable);
+      const arrayIndiaState = []; // just name is indiaState but data is also from usa if you select usa..
+      CountryCodeForTable == "IN"
+        ? await fetch("https://data.covid19india.org/v4/min/data.min.json")
+            .then((response) => response.json())
+            .then((data) => {
+              //console.log("IndiaState Data obj >>", data);
+
+              for (let x in data) {
+                arrayIndiaState.push({
+                  name: x[0] + x[1],
+                  confirmed: data[x].total.confirmed,
+                  recovered: data[x].total.recovered,
+                  vaccinated: data[x].total.vaccinated,
+                  tested: data[x].total.tested,
+                  deceased: data[x].total.deceased,
+                });
+              }
+            })
+        : await fetch("https://disease.sh/v3/covid-19/states")
+            .then((response) => response.json())
+            .then((data) => {
+              //console.log("USAState Data obj new wala hai yeh yaad rakhna >>",data );
+              for (let x in data) {
+                arrayIndiaState.push({
+                  name: data[x].state,
+                  confirmed: data[x].cases,
+                  recovered: data[x].recovered,
+                  tested: data[x].tests,
+                  deceased: data[x].deaths,
+                });
+              }
             });
-          }
-          // console.log("Final Array India Data ", arrayIndiaState);
-          const sortedIndiaData = sortData2(arrayIndiaState);
-          changeIndiaState(sortedIndiaData);
-        });
+      //console.log("Final Array India Data ", arrayIndiaState);
+      const sortedIndiaData = sortData2(arrayIndiaState);
+      changeIndiaState(sortedIndiaData);
     };
     indiaData();
-  }, []);
+  }, [CountryCodeForTable]);
+
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/countries/IN")
       .then((response) => response.json())
@@ -90,10 +111,11 @@ function App() {
 
   const onCountryChange = async (event) => {
     const countryCode = event.target.value;
+    setCountryCodeForTable(countryCode);
     //console.log("you choose", countryCode);
     const url =
-      countryCode === "IN"
-        ? "https://disease.sh/v3/covid-19/countries/IN"
+      countryCode === "USA"
+        ? "https://disease.sh/v3/covid-19/countries/USA"
         : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
     //  console.log("url >>", url);
     await fetch(url)
@@ -127,18 +149,21 @@ function App() {
       <div className="app__left">
         <div className="app__header">
           <h1>Covid 19 Live Tracker</h1>
-          <FormControl className="app__dropdown">
-            <Select
-              variant="outlined"
-              onChange={onCountryChange}
-              value={country}
-            >
-              <MenuItem value="India">India</MenuItem>
-              {countries.map((country) => (
-                <MenuItem value={country.value}>{country.name}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <div className="app__dropdown">
+            <FormControl>
+              <Select
+                onChange={onCountryChange}
+                value={country}
+                label={country}
+                variant="outlined"
+              >
+                <MenuItem value="USA">United States</MenuItem>
+                {countries.map((country) => (
+                  <MenuItem value={country.value}>{country.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
         </div>
         <div className="app__stats">
           {/*console.log("here its isbdgb", country)*/}
@@ -185,7 +210,7 @@ function App() {
               Let's check the stats of {country} in {casesType}{" "}
             </h2>
             <LineGraph casesType={casesType} country={countryCodeForGraph} />
-            <h2> Let's look at the Indian States </h2>
+            <h2> Let's look at the {country} States </h2>
             <IndiaTable states={indiaState} />
           </CardContent>
         </Card>

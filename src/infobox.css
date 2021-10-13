@@ -2,9 +2,15 @@
     flex:1;
 }
 .carda{
-    height : 80px;
+    height : 90px;
+    font-size: 1rem;
     background-color: black;
     color:blanchedalmond;
+}
+@media (max-width : 900px) {
+    .carda{
+        font-size: 0.8rem;
+    }
 }
 .infobox--selected{
     border-top : 5px solid greenyellow;}

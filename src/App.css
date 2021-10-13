@@ -11,6 +11,9 @@
   .app{
     flex-direction: column;
   }
+  .app__dropdown{
+    font-size:0.5rem;
+  }
 }
 h1,h2{
   color:blanchedalmond; 
@@ -22,7 +25,7 @@ margin-top: 50px;
 body{
 font-family: 'Montserrat', sans-serif;
 background-color: #faf3e0;
-background-image: url("covid.jpg");
+background-image: url("covid.jpg"); 
 background-repeat: no-repeat;
 background-size: cover; 
 
@@ -46,7 +49,8 @@ background-size: cover;
 .app__stats{
   background-color: black;
  display:flex; 
- justify-content:space-between;
+ font-size: 1rem;
+ justify-content: space-between;
 }
 .indiaGraphs{
   background-color:black; 
